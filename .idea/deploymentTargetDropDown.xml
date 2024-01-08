@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="BottomBar">
+        <State />
+      </entry>
+      <entry key="DisplayCard">
+        <State />
+      </entry>
+      <entry key="HomeScreen">
+        <State />
+      </entry>
+      <entry key="SearchTopBar">
+        <State />
+      </entry>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="displayCard">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>
