@@ -11,6 +11,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -38,6 +40,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -140,58 +146,25 @@ fun DisplayCardHeader(modifier: Modifier = Modifier, painterResource: Int, text:
 }
 
 //endregion
-//region Bottom Bar
-@Preview
-@Composable
-fun BottomBar(modifier: Modifier = Modifier) {
-    Surface(modifier.padding(vertical = 20.dp), color = MaterialTheme.colorScheme.surface) {
-        Row(
-            modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
-        ) {
-            BottomBarLayout( modifier, icon = Icons.Default.Home,)
-            BottomBarButton(modifier.padding(horizontal = 15.dp))
-            BottomBarLayout(modifier, icon = Icons.Default.Settings)
-        }
-    }
-}
-
-@Composable
-fun BottomBarLayout(modifier: Modifier = Modifier, icon: ImageVector) {
-    Row(modifier, ) {
-        Icon(imageVector = icon, contentDescription = null, modifier.size(30.dp))
-        Spacer(modifier.padding(horizontal = 2.dp))
-    }
-}
-@Preview
-@Composable
-fun BottomBarButton(modifier: Modifier = Modifier)
-{
-
-    Button( onClick = { /*TODO*/ }, shape =  RoundedCornerShape(corner = CornerSize(50))) {
-        Icon(imageVector = Icons.Default.Add, contentDescription = null)
-    }
-}
-//endregion
 
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Column(modifier.padding(0.dp, top = 10.dp)) {
-        SearchTopBar(modifier.padding(start = 10.dp, end = 10.dp))
-        Spacer(modifier.padding(bottom = 10.dp))
+    var presses by remember { mutableIntStateOf(0) }
 
-        LazyColumn(modifier.weight(1f)) {
-            item {
-                // hush i know this looks stupid it's just a placeholder atm
-                var i = 0
-                while (i != 10) {
-                    val siteName = i * i
-                    DisplayCard(username = "$i", password = "$i", siteName = "$siteName", urlFavicon = R.drawable.ic_launcher_foreground)
-                    i++
-                }
+    Scaffold(
+        topBar = { SearchTopBar(modifier.padding(start = 10.dp, end = 10.dp)) },
+        bottomBar = { /* BottomBarMain() */},
+        floatingActionButton = { FloatingAddButton() },
+        floatingActionButtonPosition = FabPosition.End,
 
-            }
+        ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            FilledCard()
         }
-        BottomBar()
     }
 }

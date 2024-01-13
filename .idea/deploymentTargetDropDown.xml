@@ -5,7 +5,7 @@
       <entry key="BottomBar">
         <State />
       </entry>
-      <entry key="DisplayCard">
+      <entry key="FilledCard">
         <State />
       </entry>
       <entry key="HomeScreen">
@@ -14,10 +14,10 @@
       <entry key="SearchTopBar">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="TopBarAdd">
         <State />
       </entry>
-      <entry key="displayCard">
+      <entry key="app">
         <State />
       </entry>
     </value>
