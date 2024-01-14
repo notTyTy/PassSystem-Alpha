@@ -164,7 +164,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            FilledCard()
         }
     }
 }

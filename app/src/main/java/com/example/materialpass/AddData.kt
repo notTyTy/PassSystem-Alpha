@@ -108,11 +108,44 @@ fun FloatingAddButton(modifier: Modifier = Modifier) {
     modifier.padding(16.dp)
 }
 
+
+// Data classes to store login information
+//region class information
+data class SiteInformation(
+    val title: String = "", val url: String = "N/A", val credentials: Credentials
+)
+
+data class Credentials(
+    var username: String = "", var email: String = "", var password: String = ""
+)
+
+var siteData = mutableListOf<SiteInformation>()
+
+fun addSiteData() {
+    siteData.add(
+        SiteInformation(
+            title = "Revolt", url = "https://revolt.chat", credentials = Credentials(
+                username = "Ashy", email = "revolt@tyty.cloud", password = "thisIsAp@ssw0rd"
+            )
+        )
+    )
+
+}
+//endregion
+
 //region Material Card
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
-fun FilledCard(modifier: Modifier = Modifier) {
+fun FilledCard(
+    modifier: Modifier = Modifier,
+    title: String,
+    url: String,
+    username: String,
+    email: String,
+    password: String
+) {
+
+
     val context = LocalContext.current
     ElevatedCard(
         modifier
@@ -127,15 +160,15 @@ fun FilledCard(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Absolute.SpaceBetween
         ) {
-
+            // TODO make sure text is modular
             Text(
-                text = "Revolt",
+                text = "$title",
                 modifier.padding(start = 16.dp, top = 8.dp),
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.headlineLarge
             )
             IconButton(
-                onClick = {/*TODO*/ },
+                onClick = {/*TODO open up edit fields for the user on a new page*/ },
                 modifier.padding(top = 8.dp, end = 16.dp),
                 content = {
                     Icon(
@@ -147,34 +180,52 @@ fun FilledCard(modifier: Modifier = Modifier) {
             )
         }
 
+        val paddingTop = 8.dp
+        val paddingStart = 16.dp
+
+        //region TODO the text fields here must vary depending on the input. i.e can have password, username etc.
+        // If String.isEmpty ensure that that field is not added to the design
         Text(
-            text = "https://revolt.chat",
-            modifier.padding(start = 16.dp),
+            text = "$url",
+            modifier.padding(start = paddingStart),
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.labelLarge
         )
         Text(
-            text = "Email: revolt@tyty.cloud",
-            modifier.padding(top = 6.dp, start = 16.dp),
-            textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.bodyLarge
-
-
+            text = "Username:   " + "$username", modifier.padding(
+                top = paddingTop, start = paddingStart
+            ), // all padding and text align are the same
+            textAlign = TextAlign.Start, style = MaterialTheme.typography.bodyLarge
         )
         Text(
-            text = "Password:  **********",
-            modifier.padding(top = 6.dp, start = 16.dp),
+            text = "Email:  " + "$email",
+            modifier.padding(top = paddingTop, start = paddingStart),
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.bodyLarge
         )
-        Spacer(modifier.padding(top = 6.dp))
+        Text(
+            text = "Password:   " + "$password",
+            modifier.padding(top = paddingTop, start = paddingStart),
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.bodyLarge
+        )
+        //endregion
+        Spacer(modifier.padding(top = paddingTop)) // Always keep this spacer
+
+        //region TODO the clipboard fields must vary depending on the input. i.e can have password username etc.
         Row(
             modifier
                 .fillMaxWidth()
                 .padding(), horizontalArrangement = Arrangement.Absolute.Left
         ) {
             ElevatedButton(
-                onClick = { Toast.makeText(context, "Username copied to clipboard", Toast.LENGTH_SHORT,  ).show() },
+                onClick = {
+                    Toast.makeText(
+                        context,
+                        "Username copied to clipboard",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                },
                 modifier.padding(start = 16.dp),
                 content = {
                     Icon(
@@ -212,10 +263,25 @@ fun FilledCard(modifier: Modifier = Modifier) {
                     )
                 },
             )
-
         }
-        Spacer(modifier.padding(bottom = 8.dp))
+        //endregion
+        Spacer(modifier.padding(bottom = 8.dp)) // Always keep this spacer
 
     }
 }
-//endregion
+
+@Preview
+@Composable
+fun DisplayCard(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        for (data in siteData) {
+            FilledCard(
+                title = data.title,
+                url = data.url,
+                username = data.credentials.username,
+                email = data.credentials.email,
+                password = data.credentials.password
+            )
+        }
+    }
+}

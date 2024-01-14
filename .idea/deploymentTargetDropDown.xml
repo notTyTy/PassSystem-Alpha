@@ -5,13 +5,13 @@
       <entry key="BottomBar">
         <State />
       </entry>
+      <entry key="DisplayCard">
+        <State />
+      </entry>
       <entry key="FilledCard">
         <State />
       </entry>
       <entry key="HomeScreen">
-        <State />
-      </entry>
-      <entry key="SearchTopBar">
         <State />
       </entry>
       <entry key="TopBarAdd">
