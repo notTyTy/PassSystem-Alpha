@@ -72,12 +72,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//region Search Bar
+//region Search Bar TODO work on this to allow text input
 @Preview
 @Composable
 fun SearchTopBar(modifier: Modifier = Modifier) {
     Surface(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .clip(shape = MaterialTheme.shapes.large),
         color = MaterialTheme.colorScheme.primary
@@ -85,21 +85,23 @@ fun SearchTopBar(modifier: Modifier = Modifier) {
         TextField(value = "", onValueChange = {}, placeholder = { Text(text = "Search Logins") })
     }
 }
+
 //endregion
-@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Preview
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
-        topBar = { SearchTopBar(modifier.padding(10.dp)) },
-        bottomBar = { /* BottomBarMain() */},
+        modifier = Modifier.padding(top = 10.dp),
+        topBar = {
+            SearchTopBar(Modifier) },
+        bottomBar = { /* BottomBarMain() */ },
         floatingActionButton = { FloatingAddButton() },
         floatingActionButtonPosition = FabPosition.End,
-        modifier = modifier.padding(top = 1.dp)
 
         ) { innerPadding ->
-        LazyColumn(contentPadding = innerPadding) {
+        LazyColumn(contentPadding = innerPadding, modifier = Modifier.padding(top = 10.dp)) {
             addSiteData()
             items(siteData) { data ->
                 FilledCard(
