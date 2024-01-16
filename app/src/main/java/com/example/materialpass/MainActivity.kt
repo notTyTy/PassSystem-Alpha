@@ -71,29 +71,32 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Preview
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
-        modifier = Modifier.padding(top = 10.dp),
+        modifier = Modifier.padding(top = 8.dp),
         topBar = {
-            SearchTopBar(Modifier) },
+            SearchTopBar()
+        },
         bottomBar = { /* BottomBarMain() */ },
         floatingActionButton = { FloatingAddButton() },
         floatingActionButtonPosition = FabPosition.End,
 
         ) { innerPadding ->
-        LazyColumn(contentPadding = innerPadding, modifier = Modifier.padding(top = 10.dp)) {
+        LazyColumn(contentPadding = innerPadding) {
             addSiteData()
             items(siteData) { data ->
                 FilledCard(
+                    Modifier,
                     title = data.title,
                     url = data.url,
                     username = data.credentials.username.toString(),
                     email = data.credentials.email.toString(),
-                    password = data.credentials.password.toString()
+                    password = data.credentials.password.toString(),
                 )
             }
         }

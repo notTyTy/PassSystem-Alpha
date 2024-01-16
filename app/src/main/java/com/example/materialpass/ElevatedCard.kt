@@ -39,7 +39,7 @@ fun FilledCard(
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
-        ), modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        ), modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp)
     ) {
         Row(
             Modifier

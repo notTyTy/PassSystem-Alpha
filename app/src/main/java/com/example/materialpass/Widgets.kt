@@ -99,7 +99,7 @@ fun addSiteData() {
 }
 //endregion
 
-//region Search bar TODO work on this to allow text input and update
+//region Search bar TODO work on this to allow text input and update | fix padding
 @Preview
 @Composable
 fun SearchTopBar(modifier: Modifier = Modifier) {
