@@ -190,7 +190,6 @@ fun FilledCard(
             ConditionalText(label = "Username", value = username)
             ConditionalText(label = "Email", value = email)
             ConditionalText(label = "Password", value = password)
-
         }
         Spacer(Modifier.padding(bottom = 8.dp)) // Always keep this spacer
     }
