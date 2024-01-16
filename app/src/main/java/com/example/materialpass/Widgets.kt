@@ -16,10 +16,14 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -92,5 +96,20 @@ fun addSiteData() {
             )
         )
     )
+}
+//endregion
+
+//region Search bar TODO work on this to allow text input and update
+@Preview
+@Composable
+fun SearchTopBar(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape = MaterialTheme.shapes.large),
+        color = MaterialTheme.colorScheme.primary
+    ) {
+        TextField(value = "", onValueChange = {}, placeholder = { Text(text = "Search Logins") })
+    }
 }
 //endregion

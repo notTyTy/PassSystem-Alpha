@@ -71,22 +71,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-//region Search Bar TODO work on this to allow text input
-@Preview
-@Composable
-fun SearchTopBar(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape = MaterialTheme.shapes.large),
-        color = MaterialTheme.colorScheme.primary
-    ) {
-        TextField(value = "", onValueChange = {}, placeholder = { Text(text = "Search Logins") })
-    }
-}
-
-//endregion
 @Preview
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
