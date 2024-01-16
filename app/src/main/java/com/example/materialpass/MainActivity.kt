@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.CornerSize
@@ -84,86 +85,31 @@ fun SearchTopBar(modifier: Modifier = Modifier) {
         TextField(value = "", onValueChange = {}, placeholder = { Text(text = "Search Logins") })
     }
 }
-
 //endregion
-//region Display Card
-@Composable
-fun DisplayCard(
-    modifier: Modifier = Modifier,
-    username: String,
-    password: String,
-    urlFavicon: Int,
-    siteName: String
-) {
-    Surface(
-        color = MaterialTheme.colorScheme.primary,
-        modifier = modifier
-            .padding(10.dp, 5.dp)
-            .clip(shape = MaterialTheme.shapes.large)
-    ) {
-
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(25.dp, 20.dp)
-        ) {
-            DisplayCardHeader(painterResource = urlFavicon, text = siteName)
-            DisplayCardInformation(loginType = "Username: ", userInformation = username)
-            DisplayCardInformation(loginType = "Password: ", userInformation = password)
-        }
-    }
-}
-
-@Composable
-fun DisplayCardInformation(
-    modifier: Modifier = Modifier, loginType: String, userInformation: String
-) {
-    Row(modifier = modifier.padding(10.dp)) {
-        Text(text = loginType) // Make this functional
-        Text(text = userInformation)
-    }
-}
-
-@Composable
-fun DisplayCardHeader(modifier: Modifier = Modifier, painterResource: Int, text: String) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Absolute.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            painter = painterResource(id = painterResource),
-            contentDescription = null,
-            Modifier.size(50.dp)
-        )
-        Text(
-            text = text,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = modifier.padding(10.dp)
-        ) // Name of the platform
-    }
-}
-
-//endregion
-
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
-        topBar = { SearchTopBar(modifier.padding(start = 10.dp, end = 10.dp)) },
+        topBar = { SearchTopBar(modifier.padding(10.dp)) },
         bottomBar = { /* BottomBarMain() */},
         floatingActionButton = { FloatingAddButton() },
         floatingActionButtonPosition = FabPosition.End,
+        modifier = modifier.padding(top = 1.dp)
 
         ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
+        LazyColumn(contentPadding = innerPadding) {
+            addSiteData()
+            items(siteData) { data ->
+                FilledCard(
+                    title = data.title,
+                    url = data.url,
+                    username = data.credentials.username.toString(),
+                    email = data.credentials.email.toString(),
+                    password = data.credentials.password.toString()
+                )
+            }
         }
     }
 }
