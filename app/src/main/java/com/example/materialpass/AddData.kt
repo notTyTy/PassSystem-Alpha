@@ -129,101 +129,80 @@ fun FilledCard(
     email: String,
     password: String
 ) {
-    val context = LocalContext.current
+    LocalContext.current
     ElevatedCard(
-        modifier
-            .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 5.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ), modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
     ) {
         Row(
-            modifier.fillMaxWidth(),
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp, start = 16.dp, end = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Absolute.SpaceBetween
         ) {
             Text(
-                text = title,
-                modifier.padding(start = 16.dp, top = 8.dp),
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.headlineLarge
+                text = title, style = MaterialTheme.typography.headlineLarge
             )
             IconButton(
                 onClick = {/*TODO open up edit fields for the user on a new page*/ },
-                modifier.padding(top = 8.dp, end = 16.dp),
                 content = {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         contentDescription = null,
-                        modifier.size(30.dp)
+                        Modifier.size(30.dp)
                     )
                 },
             )
         }
-        val paddingTop = 8.dp
-        val paddingStart = 16.dp
-
-        Text(
-            text = url,
-            modifier.padding(start = paddingStart),
-            textAlign = TextAlign.Start,
-            style = MaterialTheme.typography.labelLarge
-        )
-        Spacer(modifier.padding(vertical = 2.dp))
-        @Composable
-        fun ConditionalText(label: String, value: String) {
-            if (value.isNotEmpty()) {
-                Row(
-                    modifier
-                        .fillMaxWidth()
-                        .padding(end = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column(modifier) {
-                        Text(
-                            text = label,
-                            modifier = Modifier.padding(start = paddingStart),
-                            textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.labelMedium
-                        )
-
-                        Text(
-                            text = value,
-                            modifier = Modifier.padding(start = paddingStart),
-                            textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Text(
+                text = url, style = MaterialTheme.typography.labelLarge
+            )
+            @Composable
+            fun ConditionalText(label: String, value: String) {
+                if (value.isNotEmpty()) {
+                    Row(
+                        Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(Modifier) {
+                            Text(
+                                text = label, style = MaterialTheme.typography.labelMedium
+                            )
+                            Text(
+                                text = value, style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                        IconButton(onClick = {/*TODO*/ }, content = {
+                            Icon(
+                                imageVector = Icons.Default.ContentCopy,
+                                contentDescription = null,
+                                modifier.size(24.dp),
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        })
                     }
-                    IconButton(onClick = {/*TODO*/ }, content = {
-                        Icon(
-                            imageVector = Icons.Default.ContentCopy,
-                            contentDescription = null,
-                            modifier.size(24.dp),
-                            tint = MaterialTheme.colorScheme.primary,
-                        )
-                    })
                 }
             }
+            ConditionalText(label = "Username", value = username)
+            ConditionalText(label = "Email", value = email)
+            ConditionalText(label = "Password", value = password)
+
         }
-        ConditionalText(label = "Username", value = username)
-        ConditionalText(label = "Email", value = email)
-        ConditionalText(label = "Password", value = password)
-
-        Spacer(modifier.padding(top = paddingTop)) // Always keep this spacer
-
+        Spacer(Modifier.padding(bottom = 8.dp)) // Always keep this spacer
     }
-    Spacer(modifier.padding(bottom = 8.dp)) // Always keep this spacer
-
 }
+
 
 @Preview
 @Composable
 
 fun DisplayCard(modifier: Modifier = Modifier) {
     addSiteData()
-    LazyColumn(modifier.padding(), contentPadding = PaddingValues()) {
+    LazyColumn(Modifier.padding(), contentPadding = PaddingValues()) {
         addSiteData()
         items(siteData) { data ->
             FilledCard(
