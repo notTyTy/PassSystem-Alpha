@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -78,11 +79,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
-        modifier = Modifier.padding(top = 8.dp),
         topBar = {
-            SearchTopBar()
+                 Search()
         },
-        bottomBar = { /* BottomBarMain() */ },
+        bottomBar = { BottomAppBar() },
         floatingActionButton = { FloatingAddButton() },
         floatingActionButtonPosition = FabPosition.End,
 
